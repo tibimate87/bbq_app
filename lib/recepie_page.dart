@@ -4,7 +4,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
+import 'card_button.dart';
 class RecepiePage extends StatefulWidget {
   @override
   _RecepiePageState createState() => _RecepiePageState();
@@ -19,7 +19,7 @@ class _RecepiePageState extends State<RecepiePage> {
       body: Column(
         children: <Widget>[
           ClipPath(
-            clipper: DiagonalPathClipperTwo(),
+            clipper: WaveClipperTwo(),
             child: Container(
               height: 300.0,
               decoration: BoxDecoration(
@@ -43,14 +43,14 @@ class _RecepiePageState extends State<RecepiePage> {
                       ),
                     ],
                   ),
-
                   Padding(
-                    padding: const EdgeInsets.all(30.0),
+                    padding: const EdgeInsets.fromLTRB(30.0, 0, 30.0, 0),
                     child: CarouselSlider(
-                      height: 100,
+                      height: 150,
                       scrollDirection: Axis.horizontal,
                       onPageChanged: (value) {},
-                      items: [1, 2, 3, 4, 5].map((i) {
+                      items: [Image(image: AssetImage('images/trialPics3.png'))]
+                          .map((i) {
                         return Builder(
                           builder: (BuildContext context) {
                             return Center(
@@ -60,12 +60,7 @@ class _RecepiePageState extends State<RecepiePage> {
                                   decoration:
                                       BoxDecoration(color: Colors.transparent),
                                   child: Center(
-                                    child: Text(
-                                      'text $i',
-                                      style: TextStyle(
-                                        fontSize: 80.0,
-                                      ),
-                                    ),
+                                    child: i,
                                   )),
                             );
                           },
@@ -73,16 +68,6 @@ class _RecepiePageState extends State<RecepiePage> {
                       }).toList(),
                     ),
                   )
-                  // Row(
-                  //   children: <Widget>[
-                  ,
-                  // IconWidgets(
-                  //     widgeticon: FontAwesomeIcons.arrowLeft,
-                  //     paddingData: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  //     alignmentData: Alignment.center,
-                  //     size: 30.0),
-                  //   ],
-                  // ),
                 ],
               ),
             ),
@@ -91,28 +76,58 @@ class _RecepiePageState extends State<RecepiePage> {
             height: MediaQuery.of(context).size.height - 300,
             padding: EdgeInsets.symmetric(horizontal: 30.0),
             child: ListView(
-              
               children: <Widget>[
                 Card(
+                  elevation: 10,
+                  color: Colors.transparent,
                   child: Container(
-                    color: Colors.lime,
-                    height: 150.0,
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient:
+                          LinearGradient(colors: [Colors.red, Colors.orange]),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        CardButtons(
+                          alignment: Alignment.bottomLeft,
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                          widgeticon: FontAwesomeIcons.thumbsUp,
+                          buttonText: 'Tetszik (0)',
+                         
+                        ),
+                        CardButtons(
+                          alignment: Alignment.bottomCenter,
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                          widgeticon: FontAwesomeIcons.checkCircle,
+                          buttonText: 'Megcsináltam (0)',
+                          
+                        ),
+                        CardButtons(
+                          alignment: Alignment.bottomRight,
+                          padding: EdgeInsets.fromLTRB(0, 0, 10, 5),
+                          widgeticon: FontAwesomeIcons.bookmark,
+                          buttonText: 'Mentés',
+                          
+                        ),
+                        // IconWidgets(
+                        //   widgeticon: FontAwesomeIcons.checkCircle,
+                        //   paddingData: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                        //   alignmentData: Alignment.bottomCenter,
+                        //   size: 30.0,
+                        // ),
+                        // IconWidgets(
+                        //   widgeticon: FontAwesomeIcons.bookmark,
+                        //   paddingData: EdgeInsets.fromLTRB(0, 0, 20.0, 10),
+                        //   alignmentData: Alignment.bottomRight,
+                        //   size: 30.0,
+                        // )
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(height: 20.0,),
-                Card(
-                  child: Container(
-                    color: Colors.lime,
-                    height: 150.0,
-                  ),
-                ),
-                SizedBox(height: 20.0,),
-                Card(
-                  child: Container(
-                    color: Colors.lime,
-                    height: 150.0,
-                  ),
-                )
               ],
             ),
           )
@@ -121,3 +136,5 @@ class _RecepiePageState extends State<RecepiePage> {
     );
   }
 }
+
+
