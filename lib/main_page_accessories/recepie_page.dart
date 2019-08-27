@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 List foodNames = ['Hamburger', 'Pork'];
 int sliderValue = 0;
 
@@ -15,7 +14,8 @@ class RecepiePage extends StatefulWidget {
   _RecepiePageState createState() => _RecepiePageState();
 }
 
-class _RecepiePageState extends State<RecepiePage> {
+class _RecepiePageState extends State<RecepiePage>
+    with SingleTickerProviderStateMixin {
   PageController _pageController;
   int currentPage = 0;
   String heroTagImage = 'image';
@@ -37,13 +37,41 @@ class _RecepiePageState extends State<RecepiePage> {
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.light,
-        leading: Icon(FontAwesomeIcons.portrait),
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 10),
-            child: Icon(FontAwesomeIcons.clock),
-          )
-        ],
+        leading: Icon(FontAwesomeIcons.gripLines),
+      ),
+      drawer: Drawer(
+        child: new ListView(
+          children: <Widget>[
+            new DrawerHeader(
+              child: new Text(
+                'BBQ app',
+                style: kMainTitleTextStyle,
+              ),
+            ),
+            new ListTile(
+              title: new Text(
+                'Profilom',
+                style: kMainSubTitleTextStyle,
+              ),
+              onTap: () {},
+            ),
+            new ListTile(
+              title: new Text(
+                'Beállítások',
+                style: kMainSubTitleTextStyle,
+              ),
+              onTap: () {},
+            ),
+            new Divider(),
+            new ListTile(
+              title: new Text(
+                'Kijelentkezés',
+                style: kMainSubTitleTextStyle,
+              ),
+              onTap: () {},
+            ),
+          ],
+        ),
       ),
       body: Stack(
         children: <Widget>[
@@ -84,26 +112,25 @@ class _RecepiePageState extends State<RecepiePage> {
             ),
           ),
           GestureDetector(
-            onTap: () {
+            onVerticalDragStart: (value) {
+              // onTap: () {
               Navigator.push(
                 context,
                 PageRouteBuilder(
                   opaque: true,
                   pageBuilder: (BuildContext context, _, __) {
                     return ListMainPage(
-                      titleString: foodDescList[currentPage],
-                      imageString: foodImageList[currentPage],
-                      heroTagImage: heroTagImage + '$currentPage',
-                      heroTagTitle: heroTagTitle + '$currentPage'
-                    );
+                        titleString: foodDescList[currentPage],
+                        imageString: foodImageList[currentPage],
+                        heroTagImage: heroTagImage + '$currentPage',
+                        heroTagTitle: heroTagTitle + '$currentPage');
                   },
                 ),
               );
               // Navigator.pushNamed(context, ListMainPage.ID);
             },
             child: PageView(
-             
-              onPageChanged: (value)  {
+              onPageChanged: (value) {
                 currentPage = value;
                 print(currentPage);
               },
@@ -111,46 +138,19 @@ class _RecepiePageState extends State<RecepiePage> {
               children: <Widget>[
                 for (var i = 0; i < foodDescList.length; i++)
                   FoodPicker(
-                  heroTagTitle: heroTagTitle + '$i',
-                  heroTagImage: heroTagImage + '$i',
+                    heroTagTitle: heroTagTitle + '$i',
+                    heroTagImage: heroTagImage + '$i',
                     foodNameString: foodDescList[i],
                     imageString: foodImageList[i],
                   )
               ],
             ),
           ),
+          //ToDO Get number of cards from Firebase
+          for (var i = 0; i < 2; i++)
+           Hero(tag: 'card$i',child: Container()),
         ],
       ),
     );
   }
 }
-
-// CarouselSlider(
-//               viewportFraction: 0.9,
-//               height: screenHeight * 0.8,
-//               scrollDirection: Axis.horizontal,
-//               onPageChanged: (value) {
-//                 print(value);
-//                 setState(() {
-//                   sliderValue = value;
-//                 });
-//               },
-//               items: [
-//                 FoodPicker(
-//                     imageString: 'images/hamburger.png',
-//                     foodNameString: 'HAMBURGER'),
-//                 FoodPicker(
-//                     imageString: 'images/pulledPork.png',
-//                     foodNameString: 'PORK'),
-//               ].map((i) {
-//                 return Builder(
-//                   builder: (BuildContext context) {
-//                     return Container(
-//                         width: MediaQuery.of(context).size.width,
-//                         margin: EdgeInsets.symmetric(horizontal: 5.0),
-//                         decoration: BoxDecoration(color: Colors.transparent),
-//                         child: i);
-//                   },
-//                 );
-//               }).toList(),
-//             )

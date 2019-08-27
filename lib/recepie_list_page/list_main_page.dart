@@ -17,7 +17,29 @@ class ListMainPage extends StatefulWidget {
   _ListMainPageState createState() => _ListMainPageState();
 }
 
-class _ListMainPageState extends State<ListMainPage> {
+class _ListMainPageState extends State<ListMainPage>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+
+  Animation animation;
+
+  bool _visible = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller =
+        AnimationController(duration: Duration(microseconds: 1), vsync: this);
+
+    animation = SizeTween(begin: Size.fromHeight(200), end: Size.fromHeight(0)).animate(controller); 
+    // ColorTween(begin: Colors.blueGrey, end: Colors.white).animate(controller);
+    controller.forward();
+
+    controller.addListener(() {
+      print(animation.value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +47,6 @@ class _ListMainPageState extends State<ListMainPage> {
         brightness: Brightness.light,
         backgroundColor: Colors.transparent,
         title: Row(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Hero(
               tag: widget.heroTagImage,
@@ -51,63 +71,61 @@ class _ListMainPageState extends State<ListMainPage> {
             ),
           ],
         ),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Navigator.pop(context);
+                setState(() {
+                  _visible = false;
+                });
+              },
+            );
+          },
+        ),
       ),
       body: Stack(
         // mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Hero(
-            tag: 'container',
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                  gradient: LinearGradient(
-                      colors: [Colors.red, Colors.grey],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter),
-                ),
-                child: ListView(
-                  children: <Widget>[
-                    ReusableCard(
-                      recepieTitle: 'Pulled Pork szendvics',
-                      recepieDescription:
-                          'Néhány kedvcsináló gondolat a receptről',
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: Stack(
+              children: <Widget>[
+                Hero(
+                  tag: 'container',
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                      gradient: LinearGradient(
+                          colors: [Colors.red, Colors.grey],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
                     ),
-
-                  ],
+                  ),
                 ),
-              ),
+                Visibility(
+                  visible: _visible,
+                  child: Container(
+                    child: ListView(
+                      children: <Widget>[
+                        //ToDo
+                        for (var i = 0; i < 2; i++)
+                        ReusableCard(                     
+                          heroTag: '$i',
+                          recepieTitle: 'Pulled Pork szendvics',
+                          recepieDescription:
+                              'Néhány kedvcsináló gondolat a receptről',
+                              imageString: widget.imageString,
+                              titleString: widget.titleString,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          // Align(
-          //   alignment: Alignment.topLeft,
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: <Widget>[
-          //       Hero(
-          //         tag: widget.heroTagImage,
-          //         child: Image(
-          //           height: 100.0,
-          //           width: 150.0,
-          //           image: AssetImage(widget.imageString),
-          //         ),
-          //       ),
-          //       Hero(
-          //         tag: widget.heroTagTitle,
-          //         child: Material(
-          //           color: Colors.transparent,
-          //           child: Container(
-          //             child: Text(
-          //               widget.titleString,
-          //               style: kCategoryTitleText.copyWith(fontSize: 35),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );
