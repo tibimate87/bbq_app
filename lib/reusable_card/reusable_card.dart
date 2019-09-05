@@ -1,8 +1,8 @@
+import 'package:bbq_app/03_single_recepie_page/single_recepie_page.dart';
 import 'package:bbq_app/reusable_card/accessories/card_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bbq_app/constans.dart';
-import 'package:bbq_app/single_recepie_page/single_recepie_page.dart';
 
 class ReusableCard extends StatelessWidget {
   ReusableCard(

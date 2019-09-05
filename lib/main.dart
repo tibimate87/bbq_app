@@ -1,8 +1,7 @@
-import 'package:bbq_app/main_page_accessories/recepie_page.dart';
-import 'package:bbq_app/recepie_list_page/list_main_page.dart';
+import 'package:bbq_app/cupertino_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:bbq_app/single_recepie_page/single_recepie_page.dart';
-import 'trial.dart';
+
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -10,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Trial(),
+      home: CupertinoStoreHomePage(),
       // initialRoute: RecepiePage.ID,
       // routes: {
       //   RecepiePage.ID: (context) => RecepiePage(),
