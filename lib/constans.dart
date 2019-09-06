@@ -20,6 +20,18 @@ const kMainTitleTextStyle = TextStyle(
     fontWeight: FontWeight.bold,
     fontFamily: 'SerifBold');
 
+const kNumberTextStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 80,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'SerifBold');
+
+const kTitleText = TextStyle(
+    fontSize: 30,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'SerifBold');
+
 const kMainSubTitleTextStyle =
     TextStyle(color: Colors.grey, fontSize: 22, fontFamily: 'SerifRegular');
 

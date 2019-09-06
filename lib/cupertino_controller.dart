@@ -1,9 +1,7 @@
 
 import 'package:bbq_app/01_main_page_accessories/recepie_page.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/cupertino.dart';
-
 import 'package:bbq_app/timer_page.dart';
 
 List foodNames = ['Hamburger', 'Pork'];
