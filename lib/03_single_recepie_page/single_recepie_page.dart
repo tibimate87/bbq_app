@@ -105,63 +105,6 @@ class _SingleRecepiePageState extends State<SingleRecepiePage> {
                           Text('Icon')
                         ],
                       ),
-                      // PageView(
-                      //   onPageChanged: (value) {},
-                      //   controller: _pageController,
-                      //   children: <Widget>[
-                      //     //ToDo Images
-                      //   ],
-                      // ),
-                      // PageView(
-                      //   onPageChanged: (value) {},
-                      //   controller: _pageController,
-                      //   children: <Widget>[
-                      //     //ToDo Ingredientes
-                      //   ],
-                      // ),
-                      // PageView(
-                      //   onPageChanged: (value) {},
-                      //   controller: _pageController,
-                      //   children: <Widget>[
-                      //     //ToDo Description
-                      //   ],
-                      // ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          CardButtons(
-                            alignment: Alignment.bottomLeft,
-                            padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                            widgeticon: FontAwesomeIcons.thumbsUp,
-                            buttonText: 'Tetszik (0)',
-                            onTap: () {
-                              //ToDo
-                              print('Tetszik');
-                            },
-                          ),
-                          CardButtons(
-                            alignment: Alignment.bottomLeft,
-                            padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                            widgeticon: FontAwesomeIcons.thumbsDown,
-                            buttonText: 'Nem Tetszik (0)',
-                            onTap: () {
-                              //ToDo
-                              print('Nem Tetszik');
-                            },
-                          ),
-                          CardButtons(
-                            alignment: Alignment.bottomCenter,
-                            padding: EdgeInsets.fromLTRB(0, 0, 10, 5),
-                            widgeticon: FontAwesomeIcons.checkCircle,
-                            buttonText: 'Kész (0)',
-                            onTap: () {
-                              //ToDo
-                              print('Megcsináltam');
-                            },
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 ),

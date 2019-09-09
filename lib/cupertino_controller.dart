@@ -1,12 +1,12 @@
 
 import 'package:bbq_app/01_main_page_accessories/recepie_page.dart';
 import 'package:flutter/material.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:bbq_app/timer_page.dart';
 
-List foodNames = ['Hamburger', 'Pork'];
+List foodNames = ['Beef', 'Pork', 'Poultary', 'seafood'];
 int sliderValue = 0;
 
 class CupertinoStoreHomePage extends StatefulWidget {
@@ -23,9 +23,9 @@ class _CupertinoStoreHomePageState extends State<CupertinoStoreHomePage>
         tabBar: CupertinoTabBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text('Receptek')),
+                icon: Icon(FontAwesomeIcons.calculator), title: Text('Calculator')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.timer), title: Text('Időzítő')),
+                icon: Icon(FontAwesomeIcons.fire), title: Text('Woods')),
           ],
         ),
         tabBuilder: (context, index) {

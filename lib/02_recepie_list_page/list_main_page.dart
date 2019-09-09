@@ -1,6 +1,7 @@
 import 'package:bbq_app/constans.dart';
 import 'package:bbq_app/reusable_card/reusable_card.dart';
 import 'package:flutter/material.dart';
+import 'package:bbq_app/bbq_brain.dart';
 
 class ListMainPage extends StatefulWidget {
   ListMainPage(
@@ -24,14 +25,17 @@ class _ListMainPageState extends State<ListMainPage>
   Animation animation;
 
   bool _visible = true;
+
+  BBQBrain bbqBrain = BBQBrain();
+
   @override
   void initState() {
-
     super.initState();
     controller =
         AnimationController(duration: Duration(microseconds: 1), vsync: this);
 
-    animation = SizeTween(begin: Size.fromHeight(200), end: Size.fromHeight(0)).animate(controller); 
+    animation = SizeTween(begin: Size.fromHeight(200), end: Size.fromHeight(0))
+        .animate(controller);
     // ColorTween(begin: Colors.blueGrey, end: Colors.white).animate(controller);
     controller.forward();
 
@@ -42,8 +46,36 @@ class _ListMainPageState extends State<ListMainPage>
 
   @override
   Widget build(BuildContext context) {
+    List<ReusableCard> cards = [
+      for (var i = 0; i < bbqBrain.getSize(); i++)
+      ReusableCard(
+        onTapPlus: () {
+          setState(() {
+            double q = bbqBrain.getWeight(i);
+            q++;
+            bbqBrain.setWeight(i, q);
+
+          });
+        },
+        onTapMinus: () {
+          setState(() {
+            double q = bbqBrain.getWeight(i);
+            if (q > 0) q--;
+            bbqBrain.setWeight(i, q);       
+          });
+        },
+        weight: bbqBrain.getWeight(i),
+        hours: bbqBrain.getWeight(i) * 2,
+        heroTag: i,
+        recepieTitle: bbqBrain.getName(i),
+
+        imageString: widget.imageString,
+        titleString: widget.titleString,
+      ),
+    ];
+
     return SafeArea(
-          child: Scaffold(
+      child: Scaffold(
         appBar: AppBar(
           brightness: Brightness.light,
           backgroundColor: Colors.transparent,
@@ -109,18 +141,7 @@ class _ListMainPageState extends State<ListMainPage>
                     visible: _visible,
                     child: Container(
                       child: ListView(
-                        children: <Widget>[
-                          //ToDo
-                          for (var i = 0; i < 2; i++)
-                          ReusableCard(                     
-                            heroTag: '$i',
-                            recepieTitle: 'Pulled Pork szendvics',
-                            recepieDescription:
-                                'Néhány kedvcsináló gondolat a receptről',
-                                imageString: widget.imageString,
-                                titleString: widget.titleString,
-                          ),
-                        ],
+                        children: cards,
                       ),
                     ),
                   ),

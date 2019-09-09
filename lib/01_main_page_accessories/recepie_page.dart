@@ -20,8 +20,8 @@ class _RecepiePageState extends State<RecepiePage> {
   int currentPage = 0;
   String heroTagImage = 'image';
   String heroTagTitle = 'title';
-  List foodImageList = ['images/hamburger.png', 'images/pulledPork.png'];
-  List foodDescList = ['HAMBURGER', 'PORK'];
+  List foodImageList = ['images/hamburger.png', 'images/pulledPork.png', 'images/hamburger.png', 'images/pulledPork.png', 'images/pulledPork.png', 'images/pulledPork.png'];
+  List foodDescList = ['BEEF', 'PORK', 'Poultary', 'Seafood', 'Vegetables'];
 
   @override
   void initState() {

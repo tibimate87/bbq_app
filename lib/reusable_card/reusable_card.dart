@@ -1,44 +1,49 @@
-import 'package:bbq_app/03_single_recepie_page/single_recepie_page.dart';
 import 'package:bbq_app/reusable_card/accessories/card_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bbq_app/constans.dart';
+import 'package:bbq_app/bbq_brain.dart';
 
 class ReusableCard extends StatelessWidget {
   ReusableCard(
-      {@required this.recepieDescription,
-      @required this.recepieTitle,
+      {@required this.recepieTitle,
       this.height,
       @required this.heroTag,
       @required this.imageString,
-      @required this.titleString});
+      @required this.onTapPlus,
+      @required this.onTapMinus,
+      @required this.titleString,
+      @required this.weight,
+      @required this.hours});
 
   final String recepieTitle;
-  final String recepieDescription;
+
   final double height;
-  final String heroTag;
+  final int heroTag;
   final imageString;
   final titleString;
+  final Function onTapPlus;
+  final Function onTapMinus;
+  final double weight;
+  final double hours;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            opaque: true,
-            pageBuilder: (BuildContext context, _, __) {
-              return SingleRecepiePage(
-                heroTag: 'card$heroTag',
-                imageString: imageString,
-                titleString: titleString,
-              );
-            },
-          ),
-        );
-
-        // Navigator.pushNamed(context, SingleRecepiePage.ID);
+        // Navigator.push(
+        //   context,
+        //   PageRouteBuilder(
+        //     opaque: true,
+        //     pageBuilder: (BuildContext context, _, __) {
+        //       return SingleRecepiePage(
+        //         heroTag: 'card$heroTag',
+        //         imageString: imageString,
+        //         titleString: titleString,
+        //       );
+        //     },
+        //   ),
+        // );
       },
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -61,104 +66,74 @@ class ReusableCard extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                  Container(
+                    alignment: Alignment.topLeft,
+                    padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                    child: Text(recepieTitle, style: kCardTitleStyle),
+                  ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
+                      Center(
+                        child: Container(
+                          height: 100,
+                          width: 100,
+                          child: Image(
+                            image: AssetImage('images/pulledPork.png'),
+                          ),
+                        ),
+                      ),
                       Column(
-                        // mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Container(
-                            alignment: Alignment.topLeft,
-                            padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                            child: Text(recepieTitle, style: kCardTitleStyle),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Text(
+                                '$weight',
+                                style: kCardTextStyle.copyWith(fontSize: 30),
+                              ),
+                              Text(
+                                'lb',
+                                style: kCardTextStyle.copyWith(fontSize: 10),
+                              ),
+                            ],
                           ),
-                          Container(
-                            alignment: Alignment.topLeft,
-                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: Text('tibimate87',
-                                style: kCardTitleStyle.copyWith(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.normal)),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Text('$hours',
+                                  style: kCardTextStyle.copyWith(fontSize: 30)),
+                              Text(
+                                'Hours',
+                                style: kCardTextStyle.copyWith(fontSize: 10),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      CardButtons(
-                        alignment: Alignment.topRight,
-                        padding: EdgeInsets.fromLTRB(0, 15, 15, 0),
-                        widgeticon: FontAwesomeIcons.bookmark,
-                        onTap: () {
-                          //ToDO Firebase Mentés
-                          print('Mentve');
-                        },
-                        // buttonText: 'Mentés',
-                      ),
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Flexible(
-                        child: Center(
-                          child: Container(
-                            height: 100,
-                            width: 100,
-                            child: Image(
-                              image: AssetImage('images/pulledPork.png'),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.only(right: 10.0),
-                        child: Container(
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: recepieDescription,
-                                  style: kCardTextStyle,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ))
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       CardButtons(
                         alignment: Alignment.bottomLeft,
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                        widgeticon: FontAwesomeIcons.thumbsUp,
-                        buttonText: 'Tetszik (0)',
+                        padding: EdgeInsets.fromLTRB(0, 10, 10, 5),
+                        widgeticon: FontAwesomeIcons.minusCircle,
+                        size: 40,
                         onTap: () {
-                          //ToDo
-                          print('Tetszik');
+                          onTapMinus();
                         },
                       ),
                       CardButtons(
                         alignment: Alignment.bottomLeft,
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                        widgeticon: FontAwesomeIcons.thumbsDown,
-                        buttonText: 'Nem Tetszik (0)',
+                        padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
+                        widgeticon: FontAwesomeIcons.plusCircle,
+                        size: 40,
                         onTap: () {
-                          //ToDo
-                          print('Nem Tetszik');
-                        },
-                      ),
-                      CardButtons(
-                        alignment: Alignment.bottomCenter,
-                        padding: EdgeInsets.fromLTRB(0, 0, 10, 5),
-                        widgeticon: FontAwesomeIcons.checkCircle,
-                        buttonText: 'Kész (0)',
-                        onTap: () {
-                          //ToDo
-                          print('Megcsináltam');
+                          onTapPlus();
                         },
                       ),
                     ],

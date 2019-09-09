@@ -7,19 +7,20 @@ class CardButtons extends StatelessWidget {
       @required this.padding,
       @required this.widgeticon,
       this.buttonText,
+      this.size,
       @required this.onTap});
 
   final IconData widgeticon;
   final EdgeInsetsGeometry padding;
   final AlignmentGeometry alignment;
   final Function onTap;
-
+  final double size;
   final String buttonText;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () {   
         onTap();
       },
       child: Column(
@@ -31,7 +32,7 @@ class CardButtons extends StatelessWidget {
             padding: padding,
             child: Icon(
               widgeticon,
-              size: 20,
+              size: size == null ? 20.0 : size,
               color: Colors.red,
             ),
           ),
